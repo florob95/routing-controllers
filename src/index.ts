@@ -7,6 +7,7 @@ import {RoutingControllers} from "./RoutingControllers";
 import {RoutingControllersOptions} from "./RoutingControllersOptions";
 import {ValidationOptions} from "class-validator";
 import {importClassesFromDirectories} from "./util/importClassesFromDirectories";
+import 'reflect-metadata';
 
 // -------------------------------------------------------------------------
 // Main exports
@@ -159,6 +160,14 @@ export function createExecutor<T extends BaseDriver>(driver: T, options: Routing
         const controllerDirs = (options.controllers as any[]).filter(controller => typeof controller === "string");
         controllerClasses.push(...importClassesFromDirectories(controllerDirs));
     }
+
+    let serviceClasses: Function[];
+    if (options && options.services && options.services.length) {
+        serviceClasses = (options.services as any[]).filter(service => service instanceof Function);
+        const serviceDirs = (options.services as any[]).filter(service => typeof service === "string");
+        serviceClasses.push(...importClassesFromDirectories(serviceDirs));
+    }
+
     let middlewareClasses: Function[];
     if (options && options.middlewares && options.middlewares.length) {
         middlewareClasses = (options.middlewares as any[]).filter(controller => controller instanceof Function);
@@ -222,6 +231,7 @@ export function createExecutor<T extends BaseDriver>(driver: T, options: Routing
         .registerInterceptors(interceptorClasses)
         .registerMiddlewares("before", middlewareClasses)
         .registerControllers(controllerClasses)
+        .registerServices(serviceClasses)
         .registerMiddlewares("after", middlewareClasses); // todo: register only for loaded controllers?
 }
 

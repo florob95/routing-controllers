@@ -36,7 +36,8 @@
     "cookie": "^0.4.0",
     "glob": "^7.1.4",
     "reflect-metadata": "^0.1.13",
-    "template-url": "^1.0.0"
+    "template-url": "^1.0.0",
+    "typedi": "~0.8.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.3",
@@ -58,7 +59,7 @@
     "cross-env": "6.0.0",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
-    "handlebars": "^4.4.0",
+    "handlebars": "^4.5.3",
     "json": "^9.0.6",
     "kcors": "^2.2.2",
     "koa": "^2.8.2",
@@ -79,7 +80,6 @@
     "source-map-support": "^0.5.13",
     "ts-node": "^8.4.1",
     "tslint": "^5.20.0",
-    "typedi": "~0.8.0",
     "typescript": "~3.6.3"
   },
   "peerDependencies": {

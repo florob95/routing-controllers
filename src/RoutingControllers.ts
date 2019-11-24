@@ -6,9 +6,11 @@ import {InterceptorInterface} from "./InterceptorInterface";
 import {InterceptorMetadata} from "./metadata/InterceptorMetadata";
 import {MetadataBuilder} from "./metadata-builder/MetadataBuilder";
 import {RoutingControllersOptions} from "./RoutingControllersOptions";
-import {getFromContainer} from "./container";
+import {getFromContainer, useContainer} from "./container";
 import {isPromiseLike} from "./util/isPromiseLike";
 import {runInSequence} from "./util/runInSequence";
+import {Container} from 'typedi/Container';
+import {Service} from 'typedi/decorators/Service';
 
 /**
  * Registers controllers and middlewares in the given server framework.
@@ -85,6 +87,17 @@ export class RoutingControllers<T extends BaseDriver> {
             });
         });
         this.driver.registerRoutes();
+        return this;
+    }
+
+    /**
+     * Registers all given services and methods from those services.
+     */
+    registerServices(classes?: Function[]): this {
+        useContainer(Container);
+        classes.forEach(service => {
+            Service(service);
+        });
         return this;
     }
 

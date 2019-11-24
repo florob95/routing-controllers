@@ -25,6 +25,11 @@ export interface RoutingControllersOptions {
      */
     controllers?: Function[]|string[];
 
+     /**
+     * List of services to register in the framework or directories from where to import all your services.
+     */
+    services?: Function[]|string[];
+
     /**
      * List of middlewares to register in the framework or directories from where to import all your middlewares.
      */
